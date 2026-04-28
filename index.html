@@ -6752,29 +6752,83 @@ Ihr BBC Team`
             const modal = document.createElement('div');
             modal.className = 'modal active';
             modal.innerHTML = `
-                <div class="modal-content" style="max-width: 500px;">
+                <div class="modal-content" style="max-width: 550px;">
                     <div class="modal-header">
                         <h2 class="modal-title">❌ Deal verloren</h2>
                         <button class="close-btn" onclick="this.closest('.modal').remove()">&times;</button>
                     </div>
                     
-                    <div style="margin-bottom: 24px;">
+                    <div style="margin-bottom: 20px;">
                         <p style="font-size: 16px; margin-bottom: 16px;">
                             Möchten Sie den Deal <strong>"${deal.name}"</strong> als verloren markieren?
                         </p>
                         
-                        <div style="background: #fef2f2; padding: 16px; border-radius: 8px; border-left: 4px solid #ef4444;">
-                            <div style="font-weight: 600; margin-bottom: 12px; color: #991b1b;">Das wird durchgeführt:</div>
-                            <div style="color: #991b1b; line-height: 1.8;">
+                        <div style="background: #fef2f2; padding: 14px; border-radius: 8px; border-left: 4px solid #ef4444; margin-bottom: 20px;">
+                            <div style="font-weight: 600; margin-bottom: 8px; color: #991b1b; font-size: 14px;">Das wird durchgeführt:</div>
+                            <div style="color: #991b1b; line-height: 1.6; font-size: 13px;">
                                 ✓ Deal wird als "Abgeschlossen verloren" markiert<br>
                                 ✓ Wert von <strong>€ ${parseFloat(deal.value).toLocaleString('de-DE')}</strong> wird zu verlorenen Deals addiert<br>
-                                ✓ Dashboard wird aktualisiert
+                                ✓ Dashboard und Analytics werden aktualisiert
                             </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 16px;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 10px; color: #1e293b; font-size: 15px;">
+                                Verlust-Grund auswählen: <span style="color: #ef4444;">*</span>
+                            </label>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <label style="display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#ef4444'; this.style.background='#fef2f2';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                    <input type="radio" name="lostReason" value="Preis zu hoch" style="margin-right: 12px; cursor: pointer;">
+                                    <div>
+                                        <div style="font-weight: 600; color: #1e293b;">💰 Preis zu hoch</div>
+                                        <div style="font-size: 12px; color: #64748b;">Kunde fand unser Angebot zu teuer</div>
+                                    </div>
+                                </label>
+                                
+                                <label style="display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#ef4444'; this.style.background='#fef2f2';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                    <input type="radio" name="lostReason" value="Konkurrenz gewählt" style="margin-right: 12px; cursor: pointer;">
+                                    <div>
+                                        <div style="font-weight: 600; color: #1e293b;">🏢 Konkurrenz gewählt</div>
+                                        <div style="font-size: 12px; color: #64748b;">Kunde hat sich für einen Wettbewerber entschieden</div>
+                                    </div>
+                                </label>
+                                
+                                <label style="display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#ef4444'; this.style.background='#fef2f2';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                    <input type="radio" name="lostReason" value="Kein Budget" style="margin-right: 12px; cursor: pointer;">
+                                    <div>
+                                        <div style="font-weight: 600; color: #1e293b;">📉 Kein Budget</div>
+                                        <div style="font-size: 12px; color: #64748b;">Kunde hat aktuell kein Budget verfügbar</div>
+                                    </div>
+                                </label>
+                                
+                                <label style="display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#ef4444'; this.style.background='#fef2f2';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                    <input type="radio" name="lostReason" value="Projekt verschoben" style="margin-right: 12px; cursor: pointer;">
+                                    <div>
+                                        <div style="font-weight: 600; color: #1e293b;">⏸️ Projekt verschoben</div>
+                                        <div style="font-size: 12px; color: #64748b;">Projekt wurde auf später verschoben oder abgesagt</div>
+                                    </div>
+                                </label>
+                                
+                                <label style="display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='#ef4444'; this.style.background='#fef2f2';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.background='white';">
+                                    <input type="radio" name="lostReason" value="Kein Bedarf" style="margin-right: 12px; cursor: pointer;">
+                                    <div>
+                                        <div style="font-weight: 600; color: #1e293b;">🚫 Kein Bedarf</div>
+                                        <div style="font-size: 12px; color: #64748b;">Kunde hat keinen Bedarf an unseren Leistungen</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 16px;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 8px; color: #1e293b; font-size: 14px;">
+                                Zusätzliche Notizen (optional):
+                            </label>
+                            <textarea id="lostReasonNote" rows="2" placeholder="Weitere Details zum Verlust..." style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; resize: vertical; box-sizing: border-box;"></textarea>
                         </div>
                     </div>
                     
                     <div style="display: flex; gap: 12px;">
-                        <button onclick="executeDealLost('${dealId}'); this.closest('.modal').remove();" style="flex: 1; padding: 14px; font-size: 16px; font-weight: 600; background: #ef4444; color: white; border: none; border-radius: 8px; cursor: pointer; font-family: 'DM Sans', sans-serif; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);">
+                        <button onclick="executeDealLost('${dealId}')" style="flex: 1; padding: 14px; font-size: 16px; font-weight: 600; background: #ef4444; color: white; border: none; border-radius: 8px; cursor: pointer; font-family: 'DM Sans', sans-serif; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);">
                             Ja, Deal verloren
                         </button>
                         <button onclick="this.closest('.modal').remove()" style="flex: 1; padding: 14px; font-size: 16px; font-weight: 600; background: #64748b; color: white; border: none; border-radius: 8px; cursor: pointer; font-family: 'DM Sans', sans-serif;">
@@ -6790,7 +6844,19 @@ Ihr BBC Team`
             const deal = deals.find(d => d.id === dealId);
             if (!deal) return;
             
-            console.log('Executing deal lost for:', deal.name);
+            // Get selected reason
+            const selectedReason = document.querySelector('input[name="lostReason"]:checked');
+            
+            if (!selectedReason) {
+                alert('⚠️ Bitte wählen Sie einen Verlust-Grund aus!');
+                return;
+            }
+            
+            const reason = selectedReason.value;
+            const noteElement = document.getElementById('lostReasonNote');
+            const note = noteElement ? noteElement.value.trim() : '';
+            
+            console.log('Executing deal lost for:', deal.name, 'Reason:', reason);
             
             // Set stage to lost
             deal.stage = 'Abgeschlossen verloren';
@@ -6799,8 +6865,27 @@ Ihr BBC Team`
             deal.lostConfirmed = true;
             deal.confirmedAt = new Date().toISOString();
             
+            // Save lost reason
+            deal.lostReason = reason;
+            deal.lostReasonNote = note;
+            deal.lostDate = new Date().toISOString();
+            
+            // Add to protocol
+            if (!deal.protocol) deal.protocol = [];
+            deal.protocol.push({
+                id: Date.now().toString() + '_' + Math.random().toString(36).substr(2, 9),
+                date: new Date().toISOString(),
+                note: `❌ Deal verloren - Grund: ${reason}${note ? '\n\nNotiz: ' + note : ''}`,
+                author: 'System',
+                activityType: 'note'
+            });
+            
             // Save
             Storage.setItem('bbc_deals', JSON.stringify(deals));
+            
+            // Close modal
+            const modal = document.querySelector('.modal.active');
+            if (modal) modal.remove();
             
             console.log('Deal saved, refreshing views...');
             
@@ -10183,40 +10268,96 @@ Ihr BBC Team`
             
             const lostDeals = data.deals.filter(d => d.lostConfirmed);
             
-            // Simuliere Verlustgründe (in Zukunft könnte man diese beim Deal speichern)
-            const reasons = {
-                'Preis zu hoch': Math.floor(lostDeals.length * 0.35),
-                'Konkurrenz': Math.floor(lostDeals.length * 0.25),
-                'Timing': Math.floor(lostDeals.length * 0.20),
-                'Features fehlen': Math.floor(lostDeals.length * 0.10),
-                'Sonstige': Math.floor(lostDeals.length * 0.10)
-            };
-            
-            const totalLost = Object.values(reasons).reduce((sum, val) => sum + val, 0);
-            
-            if (totalLost === 0) {
+            if (lostDeals.length === 0) {
                 container.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 40px 0;">Keine verlorenen Deals</p>';
                 return;
             }
             
-            const colors = ['#dc2626', '#f59e0b', '#64748b', '#94a3b8', '#cbd5e1'];
+            // Sammle echte Verlust-Gründe aus den Deals
+            const reasonCounts = {};
+            const reasonValues = {};
+            const noReasonDeals = [];
             
-            container.innerHTML = Object.entries(reasons).map(([reason, count], index) => {
+            lostDeals.forEach(deal => {
+                const reason = deal.lostReason || 'Kein Grund angegeben';
+                
+                if (!reasonCounts[reason]) {
+                    reasonCounts[reason] = 0;
+                    reasonValues[reason] = 0;
+                }
+                
+                reasonCounts[reason]++;
+                reasonValues[reason] += parseFloat(deal.value) || 0;
+                
+                if (!deal.lostReason) {
+                    noReasonDeals.push(deal);
+                }
+            });
+            
+            // Sortiere nach Häufigkeit
+            const sortedReasons = Object.entries(reasonCounts).sort((a, b) => b[1] - a[1]);
+            const totalLost = lostDeals.length;
+            const totalValue = lostDeals.reduce((sum, d) => sum + (parseFloat(d.value) || 0), 0);
+            
+            // Icons für jeden Grund
+            const reasonIcons = {
+                'Preis zu hoch': '💰',
+                'Konkurrenz gewählt': '🏢',
+                'Kein Budget': '📉',
+                'Projekt verschoben': '⏸️',
+                'Kein Bedarf': '🚫',
+                'Kein Grund angegeben': '❓'
+            };
+            
+            const colors = ['#dc2626', '#f59e0b', '#3b82f6', '#8b5cf6', '#ec4899', '#64748b'];
+            
+            let html = `
+                <div style="margin-bottom: 16px; padding: 12px; background: #fef2f2; border-radius: 8px; border-left: 4px solid #ef4444;">
+                    <div style="font-size: 13px; color: #991b1b; font-weight: 600;">
+                        Gesamt: ${totalLost} verlorene Deals · € ${Math.round(totalValue).toLocaleString('de-DE')} Gesamtwert
+                    </div>
+                </div>
+            `;
+            
+            html += sortedReasons.map(([reason, count], index) => {
                 const percentage = totalLost > 0 ? ((count / totalLost) * 100).toFixed(1) : 0;
+                const reasonValue = reasonValues[reason] || 0;
+                const icon = reasonIcons[reason] || '❌';
+                const color = colors[index % colors.length];
                 
                 return `
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid var(--border);">
-                        <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
-                            <div style="width: 12px; height: 12px; background: ${colors[index]}; border-radius: 2px;"></div>
-                            <span style="font-weight: 500; color: var(--text-primary);">${reason}</span>
+                    <div style="padding: 14px; border-bottom: 1px solid var(--border); transition: background 0.2s;" onmouseover="this.style.background='#f8fafc';" onmouseout="this.style.background='white';">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+                                <div style="font-size: 20px;">${icon}</div>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--text-primary); font-size: 14px;">${reason}</div>
+                                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">
+                                        ${count} ${count === 1 ? 'Deal' : 'Deals'} · € ${Math.round(reasonValue).toLocaleString('de-DE')}
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="font-weight: 700; color: ${color}; font-size: 16px; min-width: 50px; text-align: right;">
+                                ${percentage}%
+                            </div>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 16px;">
-                            <span style="font-size: 14px; font-weight: 600; color: var(--text-secondary);">${count} Deals</span>
-                            <span style="font-weight: 700; color: ${colors[index]}; min-width: 50px; text-align: right;">${percentage}%</span>
+                        <div style="background: #f1f5f9; height: 6px; border-radius: 3px; overflow: hidden;">
+                            <div style="background: ${color}; height: 100%; width: ${percentage}%; border-radius: 3px; transition: width 0.5s;"></div>
                         </div>
                     </div>
                 `;
             }).join('');
+            
+            // Hinweis bei alten Deals ohne Grund
+            if (noReasonDeals.length > 0) {
+                html += `
+                    <div style="margin-top: 12px; padding: 10px; background: #fef3c7; border-radius: 6px; font-size: 12px; color: #92400e;">
+                        ℹ️ ${noReasonDeals.length} ${noReasonDeals.length === 1 ? 'Deal wurde' : 'Deals wurden'} vor der Grund-Auswahl-Funktion verloren
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
         }
         
         function renderForecast() {
